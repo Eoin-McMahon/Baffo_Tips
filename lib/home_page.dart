@@ -14,6 +14,9 @@ class HomePage extends StatefulWidget
 class _HomePageState extends State<HomePage>
 {
 
+
+  List<Employee> employeeList = [];
+
   TimeOfDay _time = new TimeOfDay.now();
   TimeOfDay _startTime = new TimeOfDay.now();
   TimeOfDay _endTime = new TimeOfDay.now();
@@ -28,8 +31,8 @@ class _HomePageState extends State<HomePage>
       initialTime: _time
     );
 
-    if (startPicked != null && startPicked != _time)
-    {
+    // if (startPicked != null && startPicked != _time)
+    // {
       setState((){
         _startTime = startPicked;
         times.add(startPicked);
@@ -37,7 +40,7 @@ class _HomePageState extends State<HomePage>
         print("endPicked: " + startPicked.toString());
         print('Start Time: ${_startTime.toString()}');
       });
-    }
+    // }
     
   }
 
@@ -48,8 +51,8 @@ class _HomePageState extends State<HomePage>
       initialTime: _time
     );
 
-    if (endPicked != null && endPicked !=_time)
-    {
+    // if (endPicked != null && endPicked !=_time)
+    // {
       setState((){
         _endTime = endPicked;
         times.add(endPicked);
@@ -58,7 +61,7 @@ class _HomePageState extends State<HomePage>
         print('End Time: ${_endTime.toString()}');
         
       });
-    }
+    // }
     
   }
 
@@ -118,8 +121,14 @@ class _HomePageState extends State<HomePage>
                   print("Times Selected: ${times.toString()}");
                   print(times);
                   print(text);
-                  print(employees);
                   employees[text] = times;
+                  print(employees.toString());
+                  employeeList.add(new Employee(text, times[0], times[1]));
+                  for(Employee employee in employeeList)
+                  {
+                    print(employee.toString());
+                  }
+                  print("Employee List: ${employeeList.toString()}");
                   print(employees);
                   times.clear();
                 });
@@ -135,15 +144,7 @@ class _HomePageState extends State<HomePage>
     ,),      
     );
   }
-  Duration getDifference(TimeOfDay _start, TimeOfDay _end)
-  {
-    DateTime start;
-    DateTime end;
-    start = new DateTime(_start.hour, start.minute);
-    end = new DateTime(_end.hour, end.minute);
-
-    return end.difference(start);
-  }
+ 
 
 }  
 

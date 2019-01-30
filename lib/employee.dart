@@ -4,22 +4,32 @@ import 'package:flutter/cupertino.dart';
 class Employee 
 {
 
-  Employee(this.name, this.startTime, this.endTime, this.tipRate);
+  Employee(this.name, this.startTime, this.endTime);
 
   String name;
-  double startTime;
-  double endTime;
-  double workTime;
-  double tipRate;
+  TimeOfDay startTime;
+  TimeOfDay endTime;
+  Duration workTime;
+  // double tipRate;
 
-  double getWorkTime()
+  Duration getDifference(TimeOfDay startTime, TimeOfDay endTime)
   {
-    return endTime - startTime;
+    DateTime start;
+    DateTime end;
+    start = new DateTime(startTime.hour, startTime.minute);
+    end = new DateTime(endTime.hour, endTime.minute);
+    workTime = end.difference(start);
+    return workTime;
   }
 
-  double getEmployeeTips()
+  String toString()
   {
-    return tipRate * workTime;
+    String returnString = "name: ${name}, start time: ${startTime}, end time: ${endTime}";
+    return returnString;
   }
+  // double getEmployeeTips()
+  // {
+  //   return tipRate * workTime;
+  // }
   
 }
