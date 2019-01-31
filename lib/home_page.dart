@@ -5,6 +5,7 @@ import 'dart:async';
 import 'text_field_custom.dart';
 import 'globals.dart';
 
+
 class HomePage extends StatefulWidget
 {
   @override
@@ -79,24 +80,36 @@ class _HomePageState extends State<HomePage>
     print(mediaQueryData.size);
     }
     return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text("Baffo Tips", 
-          style: TextStyle(fontSize: 30.0,
-          color: Colors.white),
-        ),),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/geometry-abstract-4k-1y.jpg"),
-            fit: BoxFit.cover,
-            
+      // appBar: AppBar(
+      //   title: Center(
+      //     child: Text("Baffo Tips", 
+      //     style: TextStyle(fontSize: 30.0,
+      //     color: Colors.white),
+      //   ),),
+      // ),
+      body: CustomScrollView(
+
+        slivers: <Widget>[
+          SliverAppBar(
+            title: Text("Baffo Tips",),
+            pinned: true,
+            expandedHeight: 205.0,
+            flexibleSpace: FlexibleSpaceBar(
+              
+              background: Image.asset("assets/sliverimage.jpg"),
+              
+            ),
           ),
-          
+          SliverGrid.count(
+
+            crossAxisCount: 2,
+            children: ListMyWidgets(employeeList)
+
+          )
+        ]
       ),
-      child:  TheGridView().build(employeeList),
-      ),
+      
+      
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.person_add),
       onPressed: (){
@@ -147,7 +160,7 @@ class _HomePageState extends State<HomePage>
                     print(employee.toString());
                   }
                   print(employees.toString());
-                  TheGridView().build(employeeList);
+                  // TheGridView().build(employeeList);
                   times.clear();
 
                 });
@@ -160,19 +173,26 @@ class _HomePageState extends State<HomePage>
           )
         );
       } 
-    ,),      
+    ,)      
     );
   }
- 
+  List<Widget> ListMyWidgets(List<Employee> employees) {
+        
+        List<Widget> list = new List();
 
-}  
+        for(Employee employee in employees)
+        {
+          String name = employee.getName();
+          String start = employee.getStartTime().toString();
+          String end = employee.getEndTime().toString();
+          list.add(makeGridCell(name, start,end));
+        }
 
-class TheGridView
-{
-      bool ipad = false; 
-         
-
-  Container makeGridCell(String name, String startTime, String endTime)
+        
+        return list;
+  
+    }
+ Container makeGridCell(String name, String startTime, String endTime)
   {
     return Container(
       height: 300.0,
@@ -223,40 +243,8 @@ class TheGridView
             ),
       
     );
-  }
 
-
-  GridView build(List<Employee> employees)
-  {
-    print("employees in build function: ${employees.toString()}");
     
-    return GridView.count(
-      primary: true,
-      padding: EdgeInsets.all(8.0),
-      crossAxisCount: ipad? 3:2,
-      childAspectRatio: 1.0,
-      mainAxisSpacing: 4.0,
-      crossAxisSpacing: 4.0,
-      children: ListMyWidgets(employees),
-
-    );
   }
 
-  List<Widget> ListMyWidgets(List<Employee> employees) {
-  
-  List<Widget> list = new List();
-
-  for(Employee employee in employees)
-  {
-    String name = employee.getName();
-    String start = employee.getStartTime().toString();
-    String end = employee.getEndTime().toString();
-    list.add(makeGridCell(name, start,end));
-  }
-
-  
-  return list;
-  
-  }
-
-}
+}  
