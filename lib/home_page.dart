@@ -81,12 +81,22 @@ class _HomePageState extends State<HomePage>
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text("Baffo Tips", 
-        style: TextStyle(
+        title: Center(
+          child: Text("Baffo Tips", 
+          style: TextStyle(fontSize: 30.0,
           color: Colors.white),
-        ),
+        ),),
       ),
-      body: TheGridView().build(),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/geometry-abstract-4k-1y.jpg"),
+            fit: BoxFit.cover,
+            
+          ),
+      ),
+      child:  TheGridView().build(),
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.person_add),
       onPressed: (){
