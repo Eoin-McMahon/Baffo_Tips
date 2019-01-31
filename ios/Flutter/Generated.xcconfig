@@ -1,7 +1,7 @@
 // This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=/Users/eoinmcmahon/flutterDevelopment/flutter
-FLUTTER_APPLICATION_PATH=/Users/eoinmcmahon/Desktop/baffo_tips
-FLUTTER_TARGET=/Users/eoinmcmahon/Desktop/baffo_tips/lib/main.dart
+FLUTTER_APPLICATION_PATH=/Users/eoinmcmahon/Desktop/baffo-tips
+FLUTTER_TARGET=/Users/eoinmcmahon/Desktop/baffo-tips/lib/main.dart
 FLUTTER_BUILD_DIR=build
 SYMROOT=${SOURCE_ROOT}/../build/ios
 FLUTTER_FRAMEWORK_DIR=/Users/eoinmcmahon/flutterDevelopment/flutter/bin/cache/artifacts/engine/ios

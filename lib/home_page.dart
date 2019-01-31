@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import './employee.dart';
 import 'dart:async';
 import 'text_field_custom.dart';
-
+import 'globals.dart';
 
 class HomePage extends StatefulWidget
 {
@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage>
 
 
   List<Employee> employeeList = [];
-
+  
   TimeOfDay _time = new TimeOfDay.now();
   TimeOfDay _startTime = new TimeOfDay.now();
   TimeOfDay _endTime = new TimeOfDay.now();
@@ -59,7 +59,6 @@ class _HomePageState extends State<HomePage>
         print("Added end time: ${_endTime} to times");
         print("endPicked: " + endPicked.toString());
         print('End Time: ${_endTime.toString()}');
-        
       });
     // }
     
@@ -67,7 +66,19 @@ class _HomePageState extends State<HomePage>
 
 
   @override
-  Widget build(BuildContext context) {      
+  Widget build(BuildContext context) {  
+    //TODO: make ipad a global variable to the device is always known throughout the app.
+    bool ipad = false;
+    final mediaQueryData = MediaQuery.of(context);
+    if (mediaQueryData.size >= const Size(768.0,1024.0)) {
+      ipad = true;
+      print(ipad);
+
+    } 
+    else {
+    print(ipad);
+    print(mediaQueryData.size);
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text("Baffo Tips", 
@@ -75,6 +86,7 @@ class _HomePageState extends State<HomePage>
           color: Colors.white),
         ),
       ),
+      body: TheGridView().build(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.person_add),
       onPressed: (){
@@ -117,19 +129,15 @@ class _HomePageState extends State<HomePage>
               onPressed: () {
                 setState(() {
                   Map<String, List<TimeOfDay>> employees = {};
-                  print("Got this far");
-                  print("Times Selected: ${times.toString()}");
-                  print(times);
-                  print(text);
+                  
                   employees[text] = times;
-                  print(employees.toString());
+                  // print(employees.toString());
                   employeeList.add(new Employee(text, times[0], times[1]));
                   for(Employee employee in employeeList)
                   {
                     print(employee.toString());
                   }
-                  print("Employee List: ${employeeList.toString()}");
-                  print(employees);
+                  
                   times.clear();
                 });
                 Navigator.of(context).pop();
@@ -148,3 +156,61 @@ class _HomePageState extends State<HomePage>
 
 }  
 
+class TheGridView
+{
+      bool ipad = false; 
+         
+
+  Card makeGridCell(String name, String startTime, String endTime)
+  {
+    return Card(
+      elevation: 3.0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        verticalDirection: VerticalDirection.down,
+        children: <Widget>[
+          
+          Center(
+            child: Text(name),
+          ),Center(
+            child: Text(startTime),
+          ),Center(
+            child: Text(endTime),
+          )
+        ],
+      ),
+    );
+  }
+
+
+  GridView build()
+  {
+    
+    return GridView.count(
+      primary: true,
+      padding: EdgeInsets.all(20.0),
+      crossAxisCount: ipad? 3:2,
+      childAspectRatio: 1.0,
+      mainAxisSpacing: 20.0,
+      crossAxisSpacing: 20.0,
+      children: <Widget> [
+        makeGridCell("eoin", "16:00", "22:00"),
+        makeGridCell("Gaia", "16:00", "22:00"),
+        makeGridCell("Will", "16:00", "22:00"),
+        makeGridCell("Alisha", "16:00", "22:00"),
+        makeGridCell("Geva", "16:00", "22:00"),
+        makeGridCell("Geva", "16:00", "22:00"),
+        makeGridCell("Geva", "16:00", "22:00"),
+        makeGridCell("Geva", "16:00", "22:00"),
+        makeGridCell("Geva", "16:00", "22:00"),
+        makeGridCell("Geva", "16:00", "22:00"),
+        makeGridCell("Geva", "16:00", "22:00"),
+        makeGridCell("Geva", "16:00", "22:00"),
+
+
+      ]
+
+    );
+  }
+}

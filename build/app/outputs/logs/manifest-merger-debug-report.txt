@@ -30,7 +30,7 @@ ADDED from /Users/eoinmcmahon/Desktop/baffo-tips/android/app/src/main/AndroidMan
 	android:label
 		ADDED from /Users/eoinmcmahon/Desktop/baffo-tips/android/app/src/main/AndroidManifest.xml:17:9-35
 	android:icon
-		ADDED from /Users/eoinmcmahon/Desktop/baffo-tips/android/app/src/main/AndroidManifest.xml:18:9-43
+		ADDED from /Users/eoinmcmahon/Desktop/baffo-tips/android/app/src/main/AndroidManifest.xml:18:9-45
 	android:name
 		ADDED from /Users/eoinmcmahon/Desktop/baffo-tips/android/app/src/main/AndroidManifest.xml:16:9-57
 activity#com.example.baffotips.MainActivity

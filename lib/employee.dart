@@ -24,12 +24,9 @@ class Employee
 
   String toString()
   {
-    String returnString = "name: ${name}, start time: ${startTime}, end time: ${endTime}";
+    String returnString = "\n NAME: ${name}, \n START TIME: ${startTime}, \n END TIME: ${endTime}";
     return returnString;
   }
-  // double getEmployeeTips()
-  // {
-  //   return tipRate * workTime;
-  // }
+  
   
 }
