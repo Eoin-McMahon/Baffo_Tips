@@ -1,4 +1,4 @@
-#Thu Jan 31 11:35:25 GMT 2019
+#Thu Jan 31 19:21:59 GMT 2019
 base.0=/home/eoinmcmahon/Desktop/baffo-tips/build/app/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex

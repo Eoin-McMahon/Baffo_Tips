@@ -14,9 +14,8 @@ class HomePage extends StatefulWidget
 class _HomePageState extends State<HomePage>
 {
 
-
+  Map<String, List<TimeOfDay>> employees = {};
   List<Employee> employeeList = [];
-  
   TimeOfDay _time = new TimeOfDay.now();
   TimeOfDay _startTime = new TimeOfDay.now();
   TimeOfDay _endTime = new TimeOfDay.now();
@@ -94,8 +93,9 @@ class _HomePageState extends State<HomePage>
             fit: BoxFit.cover,
             
           ),
+          
       ),
-      child:  TheGridView().build(),
+      child:  TheGridView().build(employeeList),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.person_add),
@@ -138,7 +138,6 @@ class _HomePageState extends State<HomePage>
             FlatButton(
               onPressed: () {
                 setState(() {
-                  Map<String, List<TimeOfDay>> employees = {};
                   
                   employees[text] = times;
                   // print(employees.toString());
@@ -147,8 +146,10 @@ class _HomePageState extends State<HomePage>
                   {
                     print(employee.toString());
                   }
-                  
+                  print(employees.toString());
+                  TheGridView().build(employeeList);
                   times.clear();
+
                 });
                 Navigator.of(context).pop();
               },
@@ -171,60 +172,91 @@ class TheGridView
       bool ipad = false; 
          
 
-  Card makeGridCell(String name, String startTime, String endTime)
+  Container makeGridCell(String name, String startTime, String endTime)
   {
-    return Card(
-      shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-      color: Color.fromARGB(230, 255, 255, 255),
-      elevation: 3.0,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        verticalDirection: VerticalDirection.down,
-        children: <Widget>[
-          
-          Center(
-            child: Text(name),
-          ),Center(
-            child: Text(startTime),
-          ),Center(
-            child: Text(endTime),
+    return Container(
+      height: 300.0,
+      margin: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: Color.fromARGB(250, 255, 255, 255),
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(15.0),
+        boxShadow: <BoxShadow>
+        [
+          BoxShadow(
+            color: Colors.black,
+            blurRadius: 10.0,
+            offset: Offset(0.0, 10.0)
           )
-        ],
+        ]
       ),
+      child: Column(
+              
+              children: <Widget>[
+                Center(
+                  child: Text(" "),
+                ),
+                Center(
+                  
+                  child: Text(name, style: TextStyle(
+                    fontSize: 26.0   
+                  ),),
+                ),
+                // Line Separator
+                Container(
+                  margin: new EdgeInsets.symmetric(vertical: 8.0),
+                  height: ipad? 5.0:3.0,
+                  width: ipad? 300.0 :110.0,
+                  color: new Color(0xff00c6ff)
+                ),
+                
+                Center(
+                  child: Text(startTime.substring(10,15)),
+                ),
+                Center(
+                  child: Text("to"),
+                ),
+                Center(
+                  child: Text(endTime.substring(10,15)),
+                )
+            ],
+            ),
+      
     );
   }
 
 
-  GridView build()
+  GridView build(List<Employee> employees)
   {
+    print("employees in build function: ${employees.toString()}");
     
     return GridView.count(
       primary: true,
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.all(8.0),
       crossAxisCount: ipad? 3:2,
       childAspectRatio: 1.0,
-      mainAxisSpacing: 20.0,
-      crossAxisSpacing: 20.0,
-      children: <Widget> [
-        makeGridCell("eoin", "16:00", "22:00"),
-        makeGridCell("Gaia", "16:00", "22:00"),
-        makeGridCell("Will", "16:00", "22:00"),
-        makeGridCell("Alisha", "16:00", "22:00"),
-        makeGridCell("Geva", "16:00", "22:00"),
-        makeGridCell("Geva", "16:00", "22:00"),
-        makeGridCell("Geva", "16:00", "22:00"),
-        makeGridCell("Geva", "16:00", "22:00"),
-        makeGridCell("Geva", "16:00", "22:00"),
-        makeGridCell("Geva", "16:00", "22:00"),
-        makeGridCell("Geva", "16:00", "22:00"),
-        makeGridCell("Geva", "16:00", "22:00"),
-
-
-      ]
+      mainAxisSpacing: 4.0,
+      crossAxisSpacing: 4.0,
+      children: ListMyWidgets(employees),
 
     );
   }
+
+  List<Widget> ListMyWidgets(List<Employee> employees) {
+  
+  List<Widget> list = new List();
+
+  for(Employee employee in employees)
+  {
+    String name = employee.getName();
+    String start = employee.getStartTime().toString();
+    String end = employee.getEndTime().toString();
+    list.add(makeGridCell(name, start,end));
+  }
+
+  
+  return list;
+  
+  }
+
 }

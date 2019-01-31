@@ -27,6 +27,20 @@ class Employee
     String returnString = "\n NAME: ${name}, \n START TIME: ${startTime}, \n END TIME: ${endTime}";
     return returnString;
   }
+
+  String getName()
+  {
+    return name;
+  }
+
+  TimeOfDay getStartTime()
+  {
+    return startTime;
+  }
+  TimeOfDay getEndTime()
+  {
+    return endTime;
+  }
   
   
 }
