@@ -174,6 +174,10 @@ class TheGridView
   Card makeGridCell(String name, String startTime, String endTime)
   {
     return Card(
+      shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+      color: Color.fromARGB(230, 255, 255, 255),
       elevation: 3.0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
