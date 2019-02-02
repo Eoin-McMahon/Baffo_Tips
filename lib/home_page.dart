@@ -14,7 +14,9 @@ class HomePage extends StatefulWidget
 
 class _HomePageState extends State<HomePage>
 {
+    var top = 0.0;
 
+  String totalTips = "Baffo Tips";
   Map<String, List<TimeOfDay>> employees = {};
   List<Employee> employeeList = [];
   TimeOfDay _time = new TimeOfDay.now();
@@ -80,28 +82,42 @@ class _HomePageState extends State<HomePage>
     print(mediaQueryData.size);
     }
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Center(
-      //     child: Text("Baffo Tips", 
-      //     style: TextStyle(fontSize: 30.0,
-      //     color: Colors.white),
-      //   ),),
-      // ),
+      // backgroundColor: Color.fromARGB(255, 40, 54, 99),
+      backgroundColor: Color.fromARGB(255, 42, 62, 73),
+
       body: CustomScrollView(
 
         slivers: <Widget>[
           SliverAppBar(
-            title: Text("Baffo Tips",),
+            centerTitle: true,
+            // title: AnimatedOpacity(
+            //             duration: Duration(milliseconds: 300),
+            //             //opacity: top == 80.0 ? 1.0 : 0.0,
+            //             opacity: 1.0,
+            //             child: Text(
+            //               top.toString(),
+            //               style: TextStyle(fontSize: 42.0, color: Colors.white, fontFamily: "Poppins")
+            //             )),
+            // Text(
+            //   "£${totalTips}", style: TextStyle(fontSize: 42.0, color: Colors.white, fontFamily: "Poppins"),),
             pinned: true,
+            // floating: true,
             expandedHeight: 205.0,
-            flexibleSpace: FlexibleSpaceBar(
-              
-              background: Image.asset("assets/sliverimage.jpg"),
-              
-            ),
-          ),
+            flexibleSpace: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                // print('constraints=' + constraints.toString());
+                top = constraints.biggest.height;
+                return FlexibleSpaceBar(
+                  title: Text("${totalTips.toString()}", style: TextStyle(fontSize: 28.0, color: Colors.white, fontFamily: "Poppins")),
+              background: Image.asset(
+                "assets/floorblur.png", 
+                fit: BoxFit.fill,
+              ),
+            );
+          }
+        )),
           SliverGrid.count(
-
+            
             crossAxisCount: 2,
             children: ListMyWidgets(employeeList)
 
@@ -179,7 +195,58 @@ class _HomePageState extends State<HomePage>
   List<Widget> ListMyWidgets(List<Employee> employees) {
         
         List<Widget> list = new List();
+        list.add(
+          CupertinoButton(
 
+            child: Text("Enter Tips", style: TextStyle(fontSize: 28.0),),
+            onPressed: (){
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          child: CupertinoAlertDialog(
+            title: Column(
+              children: <Widget>[
+                Padding(padding: EdgeInsets.all(12.0)),                
+                Text("Enter Total Tips"),
+                Padding(padding: EdgeInsets.all(12.0)),
+                Icon(Icons.attach_money),
+                Padding(padding: EdgeInsets.all(12.0)),
+                MyPrefilledText(),
+                Padding(padding: EdgeInsets.all(12.0)),
+                
+                // TimePicker(),
+              ],
+            ),
+           
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Cancel"),
+            ),
+            FlatButton(
+              onPressed: () {
+                setState(() {
+                 // Change Total Tips
+                 totalTips = "£" + text;
+
+                });
+                Navigator.of(context).pop();
+              },
+              child: Text("Save"),
+            )
+          ],
+            
+          )
+        );
+      } 
+            
+          )
+        );
+        
+            
+          
         for(Employee employee in employees)
         {
           String name = employee.getName();
@@ -213,9 +280,9 @@ class _HomePageState extends State<HomePage>
       child: Column(
               
               children: <Widget>[
-                Center(
-                  child: Text(" "),
-                ),
+                // Center(
+                //   child: Text(" "),
+                // ),
                 Center(
                   
                   child: Text(name, style: TextStyle(
@@ -226,8 +293,8 @@ class _HomePageState extends State<HomePage>
                 Container(
                   margin: new EdgeInsets.symmetric(vertical: 8.0),
                   height: ipad? 5.0:3.0,
-                  width: ipad? 300.0 :110.0,
-                  color: new Color(0xff00c6ff)
+                  width: ipad? 300.0 :175.0,
+                  color: Color.fromARGB(180, 175, 247, 147)
                 ),
                 
                 Center(
@@ -238,7 +305,17 @@ class _HomePageState extends State<HomePage>
                 ),
                 Center(
                   child: Text(endTime.substring(10,15)),
-                )
+                ),
+                 Container(
+                  margin: new EdgeInsets.symmetric(vertical: 8.0),
+                  height: ipad? 5.0:3.0,
+                  width: ipad? 300.0 :175.0,
+                  color: Color.fromARGB(180, 175, 247, 147)
+                
+                ),
+                Center(
+                  child: Text("£8.47", style: TextStyle(fontSize: 26.0),),
+                ),
             ],
             ),
       

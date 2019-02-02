@@ -42,11 +42,14 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/geometry-abstract-4k-1y.jpg
     - assets/sliverimage.jpg
+    - assets/MMblur1.png
+    - assets/MMblur2.png
+    - assets/tblur.png
+    - assets/floorblur.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -60,11 +63,11 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+  fonts:
+    - family: Poppins
+      fonts:
+        # - asset: assets/fonts/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins-Regular.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

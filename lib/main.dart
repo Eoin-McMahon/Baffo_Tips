@@ -11,7 +11,13 @@ class MyApp extends StatelessWidget
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
-      
+      theme: ThemeData(
+    // Define the default Brightness and Colors
+    // brightness: Brightness.dark,
+    primaryColor: Color.fromARGB(255,30,38,74),
+    accentColor: Color.fromARGB(255,30,38,74),
+    // Define the default Font Family
+    fontFamily: 'Poppins',),
       title: 'Baffo Tips',
       home: HomePage(),
       

@@ -4,7 +4,7 @@ import './employee.dart';
 import 'dart:async';
 
 String text = '';
-
+String placeholder = '';
 class MyPrefilledText extends StatefulWidget {
   @override
   _MyPrefilledTextState createState() => _MyPrefilledTextState();
