@@ -14,8 +14,8 @@ class HomePage extends StatefulWidget
 
 class _HomePageState extends State<HomePage>
 {
-    var top = 0.0;
-
+  var top = 0.0;
+  int totalMinutes = 0;
   String totalTips = "Baffo Tips";
   Map<String, List<TimeOfDay>> employees = {};
   List<Employee> employeeList = [];
@@ -69,7 +69,6 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {  
-    //TODO: make ipad a global variable to the device is always known throughout the app.
     bool ipad = false;
     final mediaQueryData = MediaQuery.of(context);
     if (mediaQueryData.size >= const Size(768.0,1024.0)) {
@@ -82,24 +81,11 @@ class _HomePageState extends State<HomePage>
     print(mediaQueryData.size);
     }
     return Scaffold(
-      // backgroundColor: Color.fromARGB(255, 40, 54, 99),
       backgroundColor: Color.fromARGB(255, 42, 62, 73),
-
       body: CustomScrollView(
-
         slivers: <Widget>[
           SliverAppBar(
             centerTitle: true,
-            // title: AnimatedOpacity(
-            //             duration: Duration(milliseconds: 300),
-            //             //opacity: top == 80.0 ? 1.0 : 0.0,
-            //             opacity: 1.0,
-            //             child: Text(
-            //               top.toString(),
-            //               style: TextStyle(fontSize: 42.0, color: Colors.white, fontFamily: "Poppins")
-            //             )),
-            // Text(
-            //   "£${totalTips}", style: TextStyle(fontSize: 42.0, color: Colors.white, fontFamily: "Poppins"),),
             pinned: true,
             // floating: true,
             expandedHeight: 205.0,
@@ -118,8 +104,11 @@ class _HomePageState extends State<HomePage>
         )),
           SliverGrid.count(
             
-            crossAxisCount: 2,
-            children: ListMyWidgets(employeeList)
+            crossAxisCount: ipad? 3:2,
+            children: ListMyWidgets(employeeList),
+              
+            
+            
 
           )
         ]
@@ -170,13 +159,20 @@ class _HomePageState extends State<HomePage>
                   
                   employees[text] = times;
                   // print(employees.toString());
-                  employeeList.add(new Employee(text, times[0], times[1]));
+                  Employee temp = new Employee(text, times[0], times[1]);
+                  DateTime tempStart = new DateTime(times[0].hour, times[0].minute,);
+                  DateTime tempEnd = new DateTime(times[1].hour, times[1].minute,);
+
+
+                  totalMinutes = tempStart.difference(tempEnd).inHours;
+                  employeeList.add(temp);
                   for(Employee employee in employeeList)
                   {
                     print(employee.toString());
                   }
                   print(employees.toString());
                   // TheGridView().build(employeeList);
+                  
                   times.clear();
 
                 });
@@ -189,7 +185,7 @@ class _HomePageState extends State<HomePage>
           )
         );
       } 
-    ,)      
+    ,),    
     );
   }
   List<Widget> ListMyWidgets(List<Employee> employees) {
@@ -197,7 +193,6 @@ class _HomePageState extends State<HomePage>
         List<Widget> list = new List();
         list.add(
           CupertinoButton(
-
             child: Text("Enter Tips", style: TextStyle(fontSize: 28.0),),
             onPressed: (){
         showDialog(
@@ -213,7 +208,6 @@ class _HomePageState extends State<HomePage>
                 Padding(padding: EdgeInsets.all(12.0)),
                 MyPrefilledText(),
                 Padding(padding: EdgeInsets.all(12.0)),
-                
                 // TimePicker(),
               ],
             ),
@@ -249,17 +243,25 @@ class _HomePageState extends State<HomePage>
           
         for(Employee employee in employees)
         {
+          double tips = employee.getTips();
           String name = employee.getName();
           String start = employee.getStartTime().toString();
           String end = employee.getEndTime().toString();
-          list.add(makeGridCell(name, start,end));
+          list.add(makeGridCell(name, start,end, tips));
         }
 
-        
+        list.add(CupertinoButton(
+            child: Text("Calculate", style: TextStyle(fontSize: 28.0),),
+            onPressed: (){
+              
+                  print(totalMinutes);
+                
+              }
+          ));
         return list;
   
     }
- Container makeGridCell(String name, String startTime, String endTime)
+ Container makeGridCell(String name, String startTime, String endTime, double tips)
   {
     return Container(
       height: 300.0,
@@ -280,9 +282,6 @@ class _HomePageState extends State<HomePage>
       child: Column(
               
               children: <Widget>[
-                // Center(
-                //   child: Text(" "),
-                // ),
                 Center(
                   
                   child: Text(name, style: TextStyle(
@@ -314,7 +313,7 @@ class _HomePageState extends State<HomePage>
                 
                 ),
                 Center(
-                  child: Text("£8.47", style: TextStyle(fontSize: 26.0),),
+                  child: Text("£${tips.toString()}", style: TextStyle(fontSize: 26.0),),
                 ),
             ],
             ),

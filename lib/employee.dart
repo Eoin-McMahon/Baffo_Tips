@@ -10,9 +10,9 @@ class Employee
   TimeOfDay startTime;
   TimeOfDay endTime;
   Duration workTime;
-  // double tipRate;
+  double tips = 0.00;
 
-  Duration getDifference(TimeOfDay startTime, TimeOfDay endTime)
+  Duraton getDifference(TimeOfDay startTime, TimeOfDay endTime)
   {
     DateTime start;
     DateTime end;
@@ -22,6 +22,10 @@ class Employee
     return workTime;
   }
 
+  double getTips()
+  {
+    return tips;  
+  }
   String toString()
   {
     String returnString = "\n NAME: ${name}, \n START TIME: ${startTime}, \n END TIME: ${endTime}";
