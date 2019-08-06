@@ -1,16 +1,3 @@
-# baffo_tips
+# WIP: baffo_tips
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+An app to calculate the tips for each employee of a restaurant on a nightly basis. The App is being built in dart using the flutter library for it native code compilation as it lets me easily test the app on my android device as well as deploy it on the restaurants Ipad EPOS systems once it is finished.
